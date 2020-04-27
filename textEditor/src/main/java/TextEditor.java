@@ -9,7 +9,7 @@ public class TextEditor extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         initComponents();
-
+        setTitle("TextEditor");
         setVisible(true);
     }
 
