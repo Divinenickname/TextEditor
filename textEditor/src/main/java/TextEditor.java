@@ -1,9 +1,12 @@
 package main.java;
 
+import main.java.command.LoadCommand;
 import main.java.command.SaveCommand;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+
 
 public class TextEditor extends JFrame {
     private JTextField textField;
@@ -11,6 +14,8 @@ public class TextEditor extends JFrame {
 
     private JButton bSave;
     private JButton bLoad;
+
+    private File openedFile;
 
 
     public TextEditor() {
@@ -57,18 +62,38 @@ public class TextEditor extends JFrame {
         saveAndLoadPanel.add(bSave);
 
         bLoad.addActionListener(actionEvent ->{
+            LoadCommand command = new LoadCommand(this);
+            command.execute();
+            try{
+                textField.setText(command.getFile().getPath());
+            }
+            catch (NullPointerException e){
+                e.printStackTrace();
+            }
 
         });
 
         bSave.addActionListener(actionEvent ->{
-            new SaveCommand().execute();
+            new SaveCommand(this, textField, textArea).execute();
         });
 
     }
 
+    public File getOpenedFile() {
+        return openedFile;
+    }
 
+    public void setOpenedFile(File openedFile) {
+        this.openedFile = openedFile;
+        textField.setText(openedFile.getPath());
+    }
+
+    public void appendText(String text){
+        textArea.append(text);
+    }
 
     public static void main(String[] args) {
         new TextEditor();
     }
 }
+
