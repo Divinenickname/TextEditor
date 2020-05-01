@@ -9,6 +9,11 @@ public class Main extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
     public static void main(String[] args) {
-        new Main();
+
+        int i = 3;
+
+        while(i-- > 0){
+            System.out.println(i);
+        }
     }
 }
