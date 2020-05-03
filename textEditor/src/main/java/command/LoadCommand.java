@@ -41,12 +41,12 @@ public class LoadCommand extends Command {
 
     public void readFile(File file){
         Path path = Paths.get(file.getPath());
+        editor.clearText();
 
         try (BufferedReader bufferedReader = Files.newBufferedReader(path, Charset.forName("UTF-8"))){
-            String line;
-            while((line = bufferedReader.readLine())!= null){
-                editor.appendText(line);
-                editor.appendText(System.lineSeparator());
+            int c;
+            while((c = bufferedReader.read())!= -1){
+                editor.appendText(Character.toString(c));
             }
 
         } catch (IOException e) {

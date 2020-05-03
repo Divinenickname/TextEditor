@@ -22,10 +22,10 @@ public class TextEditor extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
         setTitle("The first stage");
-        getRootPane().setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
 
         initComponents();
-        initPanels();
+        //initPanels();
+        setJMenuBar(new MenuBar(this));
 
         setVisible(true);
     }
@@ -62,19 +62,12 @@ public class TextEditor extends JFrame {
         saveAndLoadPanel.add(bSave);
 
         bLoad.addActionListener(actionEvent ->{
-            LoadCommand command = new LoadCommand(this);
-            command.execute();
-            try{
-                textField.setText(command.getFile().getPath());
-            }
-            catch (NullPointerException e){
-                e.printStackTrace();
-            }
-
+            new LoadCommand(this).execute();
+            //new FakeLoad(this).execute();
         });
 
         bSave.addActionListener(actionEvent ->{
-            new SaveCommand(this, textField, textArea).execute();
+            new SaveCommand(this).execute();
         });
 
     }
@@ -83,13 +76,24 @@ public class TextEditor extends JFrame {
         return openedFile;
     }
 
+    public String getFileName(){
+        return textField.getText();
+    }
+
     public void setOpenedFile(File openedFile) {
         this.openedFile = openedFile;
-        textField.setText(openedFile.getPath());
     }
 
     public void appendText(String text){
         textArea.append(text);
+    }
+
+    public void clearText(){
+        textArea.setText("");
+    }
+
+    public String getText(){
+        return textArea.getText();
     }
 
     public static void main(String[] args) {

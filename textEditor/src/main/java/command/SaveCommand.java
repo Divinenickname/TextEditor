@@ -12,15 +12,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class SaveCommand extends Command {
-    private JTextField fileNameField;
-    private JTextArea textArea;
 
     private static String WINDOWS_TITLE = "Save file";
 
-    public SaveCommand(TextEditor editor, JTextField fileNameField, JTextArea textArea) {
+    public SaveCommand(TextEditor editor) {
         super(editor);
-        this.textArea = textArea;
-        this.fileNameField = fileNameField;
     }
 
     @Override
@@ -47,7 +43,7 @@ public class SaveCommand extends Command {
         Path path = Paths.get(file.getPath());
 
         try(BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("UTF-8"))){
-            writer.write(textArea.getText());
+            writer.write(editor.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }
