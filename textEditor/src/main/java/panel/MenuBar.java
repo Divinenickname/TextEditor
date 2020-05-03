@@ -1,5 +1,6 @@
-package main.java;
+package main.java.panel;
 
+import main.java.TextEditor;
 import main.java.command.CloseCommand;
 import main.java.command.LoadCommand;
 import main.java.command.SaveCommand;
@@ -9,7 +10,7 @@ import javax.swing.*;
 public class MenuBar extends JMenuBar {
     private TextEditor editor;
 
-    MenuBar(TextEditor editor){
+    public MenuBar(TextEditor editor){
         init();
         this.editor = editor;
     }

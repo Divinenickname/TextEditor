@@ -2,6 +2,8 @@ package main.java;
 
 import main.java.command.LoadCommand;
 import main.java.command.SaveCommand;
+import main.java.panel.MainPanel;
+import main.java.panel.MenuBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +28,7 @@ public class TextEditor extends JFrame {
         initComponents();
         //initPanels();
         setJMenuBar(new MenuBar(this));
+        add(new MainPanel(this), BorderLayout.NORTH);
 
         setVisible(true);
     }
