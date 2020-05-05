@@ -16,6 +16,7 @@ public class TextEditor extends JFrame {
 
     private JButton bSave;
     private JButton bLoad;
+    private JScrollPane scrollPane;
 
     private File openedFile;
 
@@ -24,7 +25,7 @@ public class TextEditor extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
         setTitle("The first stage");
-
+        setMaximumSize(new Dimension(500, 500));
         initComponents();
         //initPanels();
         setJMenuBar(new MenuBar(this));
@@ -37,7 +38,7 @@ public class TextEditor extends JFrame {
         textArea = new JTextArea();
         textArea.setName("TextArea");
 
-        JScrollPane scrollPane = new JScrollPane();
+        scrollPane = new JScrollPane();
         scrollPane.setName("ScrollPane");
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         scrollPane.setViewportView(textArea);
@@ -101,6 +102,10 @@ public class TextEditor extends JFrame {
 
     public static void main(String[] args) {
         new TextEditor();
+    }
+
+    public JTextArea getTextArea() {
+        return textArea;
     }
 }
 

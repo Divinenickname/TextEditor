@@ -1,9 +1,8 @@
 package main.java.panel;
 
+import main.java.SearchEngine;
 import main.java.TextEditor;
-import main.java.command.LoadCommand;
-import main.java.command.SaveCommand;
-import main.java.command.StartSearch;
+import main.java.command.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +23,8 @@ public class MainPanel extends JPanel {
     private JTextField searchField;
 
     private TextEditor editor;
+
+    private SearchEngine searchEngine;
 
     public MainPanel(TextEditor editor){
         this.editor = editor;
@@ -98,7 +99,24 @@ public class MainPanel extends JPanel {
         });
 
         startSearchButton.addActionListener(e -> {
-            new StartSearch(editor, searchField.getText()).execute();
+            if(!searchField.getText().equals("")){
+                searchEngine = new SearchEngine(editor.getText(), searchField.getText());
+                new StartSearch(editor, searchEngine).execute();
+            }
+
+        });
+
+        nextMatchButton.addActionListener(e -> {
+            if(searchEngine != null){
+                new NextMatch(editor, searchEngine).execute();
+            }
+
+        });
+
+        previousMatchButton.addActionListener(e -> {
+            if(searchEngine != null){
+                new PrevMatch(editor, searchEngine).execute();
+            }
         });
     }
 }
