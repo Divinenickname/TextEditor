@@ -3,6 +3,7 @@ package main.java.panel;
 import main.java.TextEditor;
 import main.java.command.LoadCommand;
 import main.java.command.SaveCommand;
+import main.java.command.StartSearch;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,6 +95,10 @@ public class MainPanel extends JPanel {
 
         saveButton.addActionListener(e -> {
             new SaveCommand(editor).execute();
+        });
+
+        startSearchButton.addActionListener(e -> {
+            new StartSearch(editor, searchField.getText()).execute();
         });
     }
 }
