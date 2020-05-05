@@ -10,6 +10,13 @@ import javax.swing.*;
 public class MenuBar extends JMenuBar {
     private TextEditor editor;
 
+    private JMenu search;
+
+    private JMenuItem startSearch;
+    private JMenuItem prevSearch;
+    private JMenuItem nextMatch;
+    private JMenuItem useRegexp;
+
     public MenuBar(TextEditor editor){
         init();
         this.editor = editor;
@@ -43,5 +50,22 @@ public class MenuBar extends JMenuBar {
         mFile.add(exit);
 
         add(mFile);
+
+        initSearch();
+    }
+
+    private void initSearch(){
+        search = new JMenu("Search");
+        startSearch = new JMenuItem("Start search");
+        prevSearch = new JMenuItem("Previous search");
+        nextMatch = new JMenuItem("Next match");
+        useRegexp = new JMenuItem("Use regular expressions");
+
+        search.add(startSearch);
+        search.add(prevSearch);
+        search.add(nextMatch);
+        search.add(useRegexp);
+
+        add(search);
     }
 }
