@@ -4,63 +4,72 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchEngine {
-    private ArrayList<Integer> indexes;
     private String text;
-    private String textToSearch;
-    private int curIndex;
+    private String pattern;
+    private String regex;
+    private int currentIndex;
+    private boolean useRegEx = false;
+    private List<Integer> indexes;
 
-    public SearchEngine(String text, String textToSearch) {
-        indexes = new ArrayList<>();
-        this.textToSearch = textToSearch;
+    public SearchEngine(String text, String pattern) {
+        this.pattern = pattern;
         this.text = text;
-        curIndex = 0;
-        findAllIndexes();
+        currentIndex = 0;
     }
 
-    private void findAllIndexes(){
-        int last = text.lastIndexOf(textToSearch);
-        int index = 0;
+    public SearchEngine(){};
 
-        while (last!= -1 && index <= last){
-            int currentIndex = text.indexOf(textToSearch, index);
-            indexes.add(currentIndex);
-            index = currentIndex + textToSearch.length();
+    public void find(){
+        indexes = new ArrayList<>();
+        var ind = 0;
+
+        while ((ind = text.indexOf(pattern, ind)) != -1){
+            indexes.add(ind);
+            System.out.println(ind);
+            ind++;
         }
+
+        System.out.println(indexes.size());
+    }
+
+    public void setUseRegEx(boolean useRegEx) {
+        this.useRegEx = useRegEx;
+    }
+
+    public int getCurrentIndex(){
+        if(indexes == null || indexes.size()==0){
+            return -1;
+        }
+
+        return indexes.get(currentIndex);
+    }
+
+    public String getPattern(){
+        return pattern;
+    }
+
+    public int previousIndex(){
+        if(indexes == null || indexes.size()==0){
+            return -1;
+        }
+
+        if(currentIndex>0){
+            currentIndex--;
+        }
+
+        return indexes.get(currentIndex);
     }
 
     public int nextIndex(){
-        if(indexes.size() != 0){
-            if(curIndex < indexes.size()-1){
-                curIndex++;
-            }
-
-            return indexes.get(curIndex);
-        }
-        else {
+        if(indexes == null || indexes.size()==0){
             return -1;
         }
 
-    }
-
-    public int prevIndex(){
-        if(indexes.size() != 0){
-            if(curIndex > 0){
-                curIndex--;
-            }
-
-            return indexes.get(curIndex);
+        if(currentIndex<indexes.size()-1){
+            currentIndex++;
         }
-        else {
-            return -1;
-        }
-    }
 
-    public int getTextLength(){
-        return textToSearch.length();
-    }
 
-    public List<Integer> getIndexes(){
-        return indexes;
+        return indexes.get(currentIndex);
     }
-
 }
