@@ -28,8 +28,8 @@ public class MainPanel extends JPanel {
 
     public MainPanel(TextEditor editor){
         this.editor = editor;
+        searchEngine = new SearchEngine();
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-        //setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         setPreferredSize(new Dimension(500, 26));
         initPanel();
         initActions();
@@ -106,17 +106,12 @@ public class MainPanel extends JPanel {
 
         });
 
-        nextMatchButton.addActionListener(e -> {
-            if(searchEngine != null){
-                new NextMatch(editor, searchEngine).execute();
-            }
+        nextMatchButton.addActionListener(e -> new NextMatch(editor, searchEngine, searchField.getText()).execute());
 
-        });
+        previousMatchButton.addActionListener(e -> new PrevMatch(editor, searchEngine, searchField.getText()).execute());
 
-        previousMatchButton.addActionListener(e -> {
-            if(searchEngine != null){
-                new PrevMatch(editor, searchEngine).execute();
-            }
+        useRegExCheckbox.addActionListener(e -> {
+            searchEngine.setUseRegEx(useRegExCheckbox.isSelected());
         });
     }
 }
