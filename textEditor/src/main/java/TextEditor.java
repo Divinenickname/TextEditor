@@ -24,7 +24,7 @@ public class TextEditor extends JFrame {
     public TextEditor() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
-        setTitle("The first stage");
+        setTitle("TextEditor");
         setMaximumSize(new Dimension(500, 500));
         initComponents();
         //initPanels();
