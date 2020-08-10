@@ -5,18 +5,21 @@ import main.java.TextEditor;
 
 public class NextMatch extends Command{
     private SearchEngine searchEngine;
-    public NextMatch(TextEditor editor, SearchEngine searchEngine) {
+    private String searchText;
+
+    public NextMatch(TextEditor editor, SearchEngine searchEngine, String searchText) {
         super(editor);
         this.searchEngine = searchEngine;
+        this.searchText = searchText;
     }
 
     @Override
     public void execute() {
-        int startIndex = searchEngine.nextIndex();
+        var index = searchEngine.nextIndex();
 
-        if(startIndex != -1){
-            editor.getTextArea().setCaretPosition(startIndex);
-            editor.getTextArea().select(startIndex, startIndex+searchEngine.getTextLength());
+        if(index != -1){
+            editor.getTextArea().setCaretPosition(index);
+            editor.getTextArea().select(index, index + searchText.length());
             editor.getTextArea().grabFocus();
         }
 

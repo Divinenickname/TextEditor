@@ -3,8 +3,6 @@ package main.java.command;
 import main.java.SearchEngine;
 import main.java.TextEditor;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class StartSearch extends Command{
     private SearchEngine searchEngine;
@@ -16,15 +14,14 @@ public class StartSearch extends Command{
 
     @Override
     public void execute() {
-        List<Integer> indexList = searchEngine.getIndexes();
+        searchEngine.find();
+        var index = searchEngine.getCurrentIndex();
 
-        if (indexList.size()!=0){
-            int startIndex = indexList.get(0);
-            editor.getTextArea().setCaretPosition(startIndex);
-            editor.getTextArea().select(startIndex, startIndex+searchEngine.getTextLength());
+        if(index != -1){
+            editor.getTextArea().setCaretPosition(index);
+            editor.getTextArea().select(index, index + searchEngine.getPattern().length());
             editor.getTextArea().grabFocus();
         }
-
 
     }
 }
